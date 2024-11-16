@@ -3,19 +3,268 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #000000;
+  --foreground: #ffffff;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Add custom styles for the glowing effects */
+@layer utilities {
+  .glow-orange {
+    text-shadow: 0 0 10px rgba(255, 72, 0, 0.3);
+  }
+  
+  .glow-yellow {
+    text-shadow: 
+      0 0 10px rgba(234, 179, 8, 0.5),
+      0 0 20px rgba(234, 179, 8, 0.3),
+      0 0 30px rgba(234, 179, 8, 0.2);
+    animation: pulse-gold 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-gold {
+    0%, 100% {
+      text-shadow: 
+        0 0 10px rgba(234, 179, 8, 0.5),
+        0 0 20px rgba(234, 179, 8, 0.3),
+        0 0 30px rgba(234, 179, 8, 0.2);
+    }
+    50% {
+      text-shadow: 
+        0 0 15px rgba(234, 179, 8, 0.6),
+        0 0 25px rgba(234, 179, 8, 0.4),
+        0 0 35px rgba(234, 179, 8, 0.3);
+    }
+  }
+
+  .text-glow-orange {
+    position: relative;
+  }
+
+  .text-glow-orange::before {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    filter: blur(15px);
+    -webkit-filter: blur(15px);
+    opacity: 0.8;
+    color: #FF4800;
+    z-index: -1;
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-glow {
+    0% {
+      opacity: 0.4;
+      filter: blur(15px);
+    }
+    50% {
+      opacity: 0.8;
+      filter: blur(25px);
+    }
+    100% {
+      opacity: 0.4;
+      filter: blur(15px);
+    }
+  }
+
+  @keyframes glow-pulse {
+    0% {
+      opacity: 0.5;
+      transform: scale(0.95);
+    }
+    50% {
+      opacity: 0.75;
+      transform: scale(1.05);
+    }
+    100% {
+      opacity: 0.5;
+      transform: scale(0.95);
+    }
+  }
+
+  .animate-glow-pulse {
+    animation: glow-pulse 2s ease-in-out infinite;
+  }
+
+  .glow-yellow-intense {
+    text-shadow: 
+      0 0 10px rgba(234, 179, 8, 0.8),
+      0 0 20px rgba(234, 179, 8, 0.6),
+      0 0 30px rgba(234, 179, 8, 0.4),
+      0 0 40px rgba(234, 179, 8, 0.2);
+    animation: pulse-gold-intense 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-gold-intense {
+    0%, 100% {
+      text-shadow: 
+        0 0 10px rgba(234, 179, 8, 0.8),
+        0 0 20px rgba(234, 179, 8, 0.6),
+        0 0 30px rgba(234, 179, 8, 0.4),
+        0 0 40px rgba(234, 179, 8, 0.2);
+      transform: scale(1);
+    }
+    50% {
+      text-shadow: 
+        0 0 15px rgba(234, 179, 8, 1),
+        0 0 25px rgba(234, 179, 8, 0.8),
+        0 0 35px rgba(234, 179, 8, 0.6),
+        0 0 45px rgba(234, 179, 8, 0.4);
+      transform: scale(1.05);
+    }
+  }
+
+  @keyframes cpu-game-fluctuate {
+    0%, 100% { height: 25%; }
+    25% { height: 35%; }
+    50% { height: 28%; }
+    75% { height: 32%; }
+  }
+
+  .animate-cpu-game {
+    animation: cpu-game-fluctuate 8s ease-in-out infinite;
+    position: absolute;
+    height: 30%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+  }
+
+  @keyframes cpu-mining-fluctuate {
+    0%, 100% { height: 45%; }
+    25% { height: 35%; }
+    50% { height: 42%; }
+    75% { height: 38%; }
+  }
+
+  .animate-cpu-mining {
+    animation: cpu-mining-fluctuate 8s ease-in-out infinite;
+    position: absolute;
+    bottom: 0;
+    height: 70%;
+    left: 0;
+    right: 0;
+    z-index: 1;
+  }
+
+  .animate-wavy-divider {
+    animation: move-divider 8s ease-in-out infinite;
+  }
+
+  @keyframes move-divider {
+    0%, 100% { bottom: calc(25%); }
+    25% { bottom: calc(35%); }
+    50% { bottom: calc(28%); }
+    75% { bottom: calc(32%); }
+  }
+
+  @keyframes wave-divider {
+    0%, 100% {
+      clip-path: polygon(0% 50%, 25% 45%, 50% 55%, 75% 45%, 100% 50%, 100% 100%, 0% 100%);
+    }
+    50% {
+      clip-path: polygon(0% 55%, 25% 50%, 50% 60%, 75% 50%, 100% 55%, 100% 100%, 0% 100%);
+    }
+  }
+
+  .animate-wave-divider {
+    animation: wave-divider 4s ease-in-out infinite;
+    background: linear-gradient(
+      to bottom,
+      rgba(234, 179, 8, 0.3),
+      rgba(59, 130, 246, 0.3)
+    );
+  }
+
+  /* Adjusted wave animations for smoother transitions */
+  @keyframes wave-mining {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  .animate-wave-mining {
+    animation: wave-mining 6s ease-in-out infinite;
+    background: linear-gradient(
+      90deg,
+      rgba(234, 179, 8, 0.3) 0%,
+      rgba(234, 179, 8, 0.4) 50%,
+      rgba(234, 179, 8, 0.3) 100%
+    );
+    background-size: 200% 100%;
+  }
+
+  @keyframes wave-game {
+    0%, 100% {
+      background-position: 100% 50%;
+    }
+    50% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .animate-wave-game {
+    animation: wave-game 6s ease-in-out infinite;
+    background: linear-gradient(
+      90deg,
+      rgba(59, 130, 246, 0.3) 0%,
+      rgba(59, 130, 246, 0.4) 50%,
+      rgba(59, 130, 246, 0.3) 100%
+    );
+    background-size: 200% 100%;
+  }
+}
+
+.matrix-animation {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.matrix-col {
+  position: absolute;
+  top: -20%;
+  width: 1px;
+  height: 120%;
+  animation: matrix-fall linear infinite;
+}
+
+.matrix-symbol {
+  display: block;
+  width: 1em;
+  height: 1em;
+  font-size: 14px;
+  transform: translateX(-50%);
+  animation: matrix-glow linear infinite;
+  font-family: monospace;
+}
+
+@keyframes matrix-fall {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes matrix-glow {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.8;
+  }
 }
